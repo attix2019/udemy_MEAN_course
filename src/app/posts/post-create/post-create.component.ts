@@ -6,5 +6,7 @@ import { Component } from '@angular/core';
   selector: 'app-post-create'
 })
 export class PostCreateComponent{
-
+  onAddPost(){
+    alert("you just clicked create post button")
+  }
 }
