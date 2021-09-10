@@ -6,7 +6,11 @@ import { Component } from '@angular/core';
   selector: 'app-post-create'
 })
 export class PostCreateComponent{
+
+  newPost = '';
+
   onAddPost(){
     alert("you just clicked create post button")
+    this.newPost = 'default'
   }
 }
