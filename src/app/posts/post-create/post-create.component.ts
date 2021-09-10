@@ -8,8 +8,13 @@ import { Component } from '@angular/core';
 export class PostCreateComponent{
 
   newPost = '';
+  enteredValue = '';
 
   onAddPost(postInput: HTMLTextAreaElement){
-    this.newPost = postInput.value
+    this.newPost = postInput.value;
+  }
+
+  onAddPostVia2WayBinding(){
+    this.newPost = this.enteredValue;
   }
 }
