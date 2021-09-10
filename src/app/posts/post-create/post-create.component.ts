@@ -9,8 +9,7 @@ export class PostCreateComponent{
 
   newPost = '';
 
-  onAddPost(){
-    alert("you just clicked create post button")
-    this.newPost = 'default'
+  onAddPost(postInput: HTMLTextAreaElement){
+    this.newPost = postInput.value
   }
 }
