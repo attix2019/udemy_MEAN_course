@@ -1,7 +1,5 @@
-<textarea rows="6" [value]="newPost" #postInput></textarea>
-<button (click)="onAddPost(postInput)">save post</button>
 
 <textarea rows="6" [(ngModel)]="enteredValue"></textarea>
-<button (click)="onAddPostVia2WayBinding()">save post</button>
+<button (click)="onAddPost()">save post</button>
 
 <p>{{newPost}}</p>

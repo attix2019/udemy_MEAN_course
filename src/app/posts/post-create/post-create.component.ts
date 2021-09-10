@@ -10,11 +10,8 @@ export class PostCreateComponent{
   newPost = '';
   enteredValue = '';
 
-  onAddPost(postInput: HTMLTextAreaElement){
-    this.newPost = postInput.value;
-  }
-
-  onAddPostVia2WayBinding(){
+  onAddPost(){
     this.newPost = this.enteredValue;
   }
+
 }
