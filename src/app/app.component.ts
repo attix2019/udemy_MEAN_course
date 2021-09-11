@@ -14,3 +14,7 @@ export class AppComponent {
     this.storedPosts.push(post);
   }
 }
+
+/*
+todo：输入框加标签，form的改造，add以后重置form，编辑和删除post的按钮
+*/
