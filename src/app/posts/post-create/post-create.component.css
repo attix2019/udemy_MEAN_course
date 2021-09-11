@@ -1,4 +1,12 @@
-.example-card {
-  max-width: 400px;
+mat-card {
   background-color: blueviolet;
+  display: block;
+  width: 80%;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+mat-form-field,
+textarea {
+  width: 100%;
 }

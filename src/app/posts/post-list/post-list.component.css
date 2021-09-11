@@ -1,0 +1,10 @@
+mat-expansion-panel{
+  background-color: green;
+  width: 80%;
+  margin: auto;
+}
+
+mat-accordion{
+  display: block;
+  margin-top: 1rem;
+}
