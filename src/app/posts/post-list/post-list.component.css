@@ -8,3 +8,7 @@ mat-accordion{
   display: block;
   margin-top: 1rem;
 }
+
+.emptyHint {
+  margin: auto;
+}
