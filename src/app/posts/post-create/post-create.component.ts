@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Post } from '../post.model';
+import { PostService } from '../posts.service';
 
 @Component({
   templateUrl: './post-create.component.html',
@@ -10,7 +11,7 @@ export class PostCreateComponent{
 
   enteredContent = '';
   enteredTitle = '';
-
+  postService : PostService;
 
   @Output() postCreated = new EventEmitter<Post>();
 
@@ -19,6 +20,11 @@ export class PostCreateComponent{
       title: this.enteredTitle,
       content: this.enteredContent
     }
-    this.postCreated.emit(post);
+    // this.postCreated.emit(post);
+    this.postService.addPost( post);
+  }
+
+  constructor(postService: PostService){
+    this.postService = postService;
   }
 }

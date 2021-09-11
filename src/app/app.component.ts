@@ -13,6 +13,4 @@ export class AppComponent {
   onPostAdded(post: Post){
     this.storedPosts.push(post);
   }
-
-
 }
