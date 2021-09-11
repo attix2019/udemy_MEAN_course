@@ -1,12 +1,12 @@
-mat-card {
-  background-color: blueviolet;
-  display: block;
-  width: 80%;
-  margin: auto;
+.example-form {
+  margin:auto;
   margin-top: 1rem;
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+  background-color: violet;
 }
 
-mat-form-field,
-textarea {
+.example-full-width {
   width: 100%;
 }

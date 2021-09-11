@@ -8,11 +8,14 @@ import { Component } from '@angular/core';
 })
 export class PostCreateComponent{
 
-  newPost = '';
-  enteredValue = '';
+  enteredContent = '';
+  enteredTitle = '';
 
   onAddPost(){
-    this.newPost = this.enteredValue;
+    const post = {
+      title: this.enteredTitle,
+      content: this.enteredContent
+    }
   }
 
 }
