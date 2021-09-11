@@ -1,12 +1,20 @@
 <form class="example-form">
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="enteredTitle" >
+    <textarea matInput [(ngModel)]="enteredContent"></textarea>
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="fill">
     <mat-label>Content</mat-label>
-    <input matInput [(ngModel)]="enteredContent" >
+    <textarea matInput [(ngModel)]="testValue"></textarea>
+
   </mat-form-field>
-  <button (click)="onAddPost()" mat-raised-button color="primary">save post</button>
+
+
+  <button (click)="onAddPost()" mat-raised-button color="primary">add post</button>
+
+  <!-- <textarea rows="6" [value]="testValue" #postInput></textarea>
+  <button (click)="onTest(postInput)">save post</button> -->
+
+  <p>{{ testValue}}</p>
 </form>
