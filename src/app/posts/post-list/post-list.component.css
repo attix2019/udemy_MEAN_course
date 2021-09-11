@@ -10,5 +10,7 @@ mat-accordion{
 }
 
 .emptyHint {
+  width: 70%;
   margin: auto;
+  margin-top: 1rem;
 }

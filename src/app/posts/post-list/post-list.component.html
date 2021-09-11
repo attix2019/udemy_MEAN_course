@@ -8,4 +8,7 @@
     <p>{{ post.content}}</p>
   </mat-expansion-panel>
 </mat-accordion>
-<p class='emptyHint' *ngIf="posts.length <= 0 "> no post yet</p>
+<mat-card *ngIf="posts.length <= 0 " class="emptyHint">
+  <p class='emptyHint'> no post yet</p>
+</mat-card>
+

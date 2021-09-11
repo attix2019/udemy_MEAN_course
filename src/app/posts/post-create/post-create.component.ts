@@ -10,6 +10,8 @@ export class PostCreateComponent{
 
   enteredContent = '';
   enteredTitle = '';
+
+
   @Output() postCreated = new EventEmitter<Post>();
 
   onAddPost(){
@@ -18,10 +20,5 @@ export class PostCreateComponent{
       content: this.enteredContent
     }
     this.postCreated.emit(post);
-  }
-
-  testValue: string= 'sssss'
-  onTest(postinput : HTMLTextAreaElement){
-    this.testValue = postinput.value
   }
 }
