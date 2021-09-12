@@ -2,6 +2,8 @@ var express = require('express')
 
 const app = express();
 
+app.use(express.json());
+
 app.use((req,res, next)=>{
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers",
@@ -10,7 +12,12 @@ app.use((req,res, next)=>{
   next();
 })
 
-app.use('/api/posts',(req,res,next)=>{
+app.post('/api/posts',(req,res,next)=>{
+  console.log(req.body);
+  res.status(201).json(req.body);
+})
+
+app.get('/api/posts',(req,res,next)=>{
   posts = [{
     "id":"1",
     "title":"title1",
