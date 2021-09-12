@@ -11,7 +11,7 @@ export class PostService {
   constructor(private http: HttpClient){}
 
   getPosts(){
-    this.http.get<Post[]>("gttp://localhost:3000/api/posts")
+    this.http.get<Post[]>("http://localhost:3000/api/posts")
     .subscribe((posts)=>{
       this.posts= posts;
       this.postsUpdated.next([...this.posts]);
