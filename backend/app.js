@@ -2,13 +2,13 @@ var express = require('express')
 
 const app = express();
 
-app.use((req,res, next)=>{
-  console.log("first middleware when visiting" + req.originalUrl);
-  next();
-})
-
-app.use((req,res, next)=>{
-  res.send('hello from express');
+app.use('/api/posts',(req,res,next)=>{
+  posts = [{
+    "id":"1",
+    "title":"title1",
+    "content":"content1"
+  }]
+  res.status(200).json(posts);
 })
 
 module.exports = app;
