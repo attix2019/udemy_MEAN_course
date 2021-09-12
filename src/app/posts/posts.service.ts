@@ -1,16 +1,22 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { Post } from "./post.model";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({providedIn: 'root'})
 export class PostService {
   private posts: Post[] = [];
   private postsUpdated  = new Subject<Post[]>();
 
-  getPosts(){
-    return [...this.posts];
-  }
+  constructor(private http: HttpClient){}
 
+  getPosts(){
+    this.http.get<Post[]>("gttp://localhost:3000/api/posts")
+    .subscribe((posts)=>{
+      this.posts= posts;
+      this.postsUpdated.next([...this.posts]);
+    })
+  }
 
   getPostUpdateListener(){
     return this.postsUpdated.asObservable();
