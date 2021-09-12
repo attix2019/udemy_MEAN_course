@@ -1,7 +1,9 @@
 var http = require('http')
+var app = require('./backend/app')
 
-const server = http.createServer((req, res) =>{
-  res.end("my first respone");
-})
+const port = 3000;
 
-server.listen(3000);
+app.set('port', port)
+const server = http.createServer(app)
+
+server.listen(port);
