@@ -6,6 +6,8 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
     <p>{{ post.content}}</p>
+    <button (click)="onEdit()" mat-raised-button color="primary">edit</button>
+    <button (click)="onDelete(post.id)" mat-raised-button color="primary">delete</button>
   </mat-expansion-panel>
 </mat-accordion>
 <mat-card *ngIf="posts.length <= 0 " class="emptyHint">

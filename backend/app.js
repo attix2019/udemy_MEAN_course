@@ -18,7 +18,7 @@ app.use((req,res, next)=>{
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers",
   "Origin,X-Requested-With,Content-type,Accept");
-  res.setHeader("Access-Control-Allow-Methods","GET,POST");
+  res.setHeader("Access-Control-Allow-Methods","GET,POST,DELETE");
   next();
 })
 
@@ -42,6 +42,13 @@ app.get('/api/posts',(req,res,next)=>{
     console.log(documents);
     res.status(200).json(documents);
   });
+})
+
+
+app.delete('/api/posts/:id', (req, res, next)=>{
+  Post.deleteOne({_id: req.params.id}).then(()=>{
+    console.log(req.params.id + " deleted");
+  })
 })
 
 module.exports = app;
