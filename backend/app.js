@@ -3,8 +3,8 @@ var Post = require('./models/post')
 const mongoose = require('mongoose');
 
 const app = express();
-
-const uri = "mongodb+srv://<username>:1gMSmeXkcFS2uByZ@crudemy1.hjx7z.mongodb.net/<databasename>?retryWrites=true&w=majority";
+//uwNLEcLJpaSrbEyX
+const uri = "mongodb+srv://cr3:uwNLEcLJpaSrbEyX@crudemy1.hjx7z.mongodb.net/crdatabase?retryWrites=true&w=majority";
 mongoose.connect(uri)
 .then(()=>{
   console.log("connected");
@@ -28,6 +28,7 @@ app.post('/api/posts',(req,res,next)=>{
     content: req.body.content
   });
   console.log(post);
+  post.save();
   res.status(201).json(req.body);
 })
 
