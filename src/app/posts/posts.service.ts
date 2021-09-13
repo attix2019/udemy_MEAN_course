@@ -37,8 +37,9 @@ export class PostService {
     this.http.post<string>("http://localhost:3000/api/posts",post)
     .subscribe((responseData)=>{
       console.log(responseData);
+      post.id = responseData;
+      this.postsUpdated.next([...this.posts]);
     });
-    this.postsUpdated.next([...this.posts]);
   }
 
   deletePost(postId : string){

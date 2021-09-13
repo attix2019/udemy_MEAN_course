@@ -27,9 +27,12 @@ app.post('/api/posts',(req,res,next)=>{
     title: req.body.title,
     content: req.body.content
   });
-  console.log(post);
-  post.save();
-  res.status(201).json(req.body);
+  // console.log(post);
+  post.save().then((responseData)=>{
+    // console.log(responseData);
+    console.log(post._id);
+    res.status(201).json(post._id);
+  });
 })
 
 app.get('/api/posts',(req,res,next)=>{
