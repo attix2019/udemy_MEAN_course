@@ -33,12 +33,15 @@ app.post('/api/posts',(req,res,next)=>{
 })
 
 app.get('/api/posts',(req,res,next)=>{
-  posts = [{
-    "id":"1",
-    "title":"title1",
-    "content":"content1"
-  }]
-  res.status(200).json(posts);
+  // posts = [{
+  //   "id":"1",
+  //   "title":"title1",
+  //   "content":"content1"
+  // }]
+  Post.find().then((documents)=>{
+    console.log(documents);
+    res.status(200).json(documents);
+  });
 })
 
 module.exports = app;
