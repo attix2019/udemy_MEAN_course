@@ -1,6 +1,16 @@
 var express = require('express')
+var Post = require('./models/post')
+const mongoose = require('mongoose');
 
 const app = express();
+
+const uri = "mongodb+srv://<username>:1gMSmeXkcFS2uByZ@crudemy1.hjx7z.mongodb.net/<databasename>?retryWrites=true&w=majority";
+mongoose.connect(uri)
+.then(()=>{
+  console.log("connected");
+}).catch(()=>{
+  console.log("connect failed")
+})
 
 app.use(express.json());
 
@@ -13,7 +23,11 @@ app.use((req,res, next)=>{
 })
 
 app.post('/api/posts',(req,res,next)=>{
-  console.log(req.body);
+  const post = new Post({
+    title: req.body.title,
+    content: req.body.content
+  });
+  console.log(post);
   res.status(201).json(req.body);
 })
 

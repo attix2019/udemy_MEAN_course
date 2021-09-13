@@ -6,4 +6,4 @@ var postSchema = mongoose.Schema({
   content: {type: String, required: true}
 })
 
-module.exports = mongoose.model('Post',Schema)
+module.exports = mongoose.model('Post',postSchema)
