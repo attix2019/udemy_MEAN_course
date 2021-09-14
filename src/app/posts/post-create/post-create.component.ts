@@ -15,7 +15,7 @@ export class PostCreateComponent implements OnInit{
   postService : PostService;
   private mode = 'create';
   private postId :any;
-  private post:Post;
+  post:Post;
 
   @Output() postCreated = new EventEmitter<Post>();
 
@@ -26,7 +26,11 @@ export class PostCreateComponent implements OnInit{
       content: this.enteredContent
     }
     // this.postCreated.emit(post);
-    this.postService.addPost( post);
+    if(this.mode === 'create'){
+      this.postService.addPost( post);
+    }else {
+      this.postService.updatePost(this.post.id, this.post);
+    }
   }
 
   constructor(postService: PostService, private route: ActivatedRoute){

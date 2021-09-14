@@ -1,12 +1,12 @@
 <mat-card class="example-form">
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Title</mat-label>
-      <input matInput [(ngModel)]="enteredTitle">
+      <input matInput [(ngModel)]="post.title">
     </mat-form-field>
 
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Content</mat-label>
-      <input matInput [(ngModel)]="enteredContent">
+      <input matInput [(ngModel)]="post.content">
     </mat-form-field>
     <button (click)="onAddPost()" mat-raised-button color="primary">add post</button>
 </mat-card>

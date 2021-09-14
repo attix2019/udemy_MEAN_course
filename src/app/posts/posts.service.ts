@@ -59,4 +59,12 @@ export class PostService {
     })
     return {...post};
   }
+
+  updatePost(postId : string, post :Post){
+    this.http.put<Post>("http://localhost:3000/api/posts/" + postId, post)
+    .subscribe( response=>{
+      console.log(response);
+    });
+  }
+
 }
