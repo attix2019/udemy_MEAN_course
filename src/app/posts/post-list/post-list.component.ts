@@ -13,11 +13,14 @@ export class PostListComponent implements OnInit, OnDestroy{
   posts:Post[] = [];
   postService : PostService;
   private postSub: Subscription;
+  isLoading = false;
 
   constructor(postService : PostService) {
     this.postService = postService;
+    this.isLoading = true;
     this.postSub = this.postService.getPostUpdateListener()
     .subscribe((posts : Post[])=>{
+      this.isLoading = false;
       this.posts = posts;
     });
   }

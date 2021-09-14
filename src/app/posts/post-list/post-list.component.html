@@ -1,4 +1,5 @@
-<mat-accordion multi="true" *ngIf="posts.length > 0 ">
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+<mat-accordion multi="true" *ngIf="posts.length > 0 && !isLoading ">
   <mat-expansion-panel *ngFor="let post of posts" >
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -10,7 +11,7 @@
     <button (click)="onDelete(post.id)" mat-raised-button color="primary">delete</button>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-card *ngIf="posts.length <= 0 " class="emptyHint">
+<mat-card *ngIf="posts.length <= 0 && !isLoading" class="emptyHint">
   <p class='emptyHint'> no post yet</p>
 </mat-card>
 
