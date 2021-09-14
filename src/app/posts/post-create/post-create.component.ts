@@ -29,7 +29,7 @@ export class PostCreateComponent implements OnInit{
     if(this.mode === 'create'){
       this.postService.addPost( post);
     }else {
-      this.postService.updatePost(this.post.id, this.post);
+      this.postService.updatePost(this.post.id, this.enteredTitle, this.enteredContent);
     }
   }
 
@@ -42,6 +42,8 @@ export class PostCreateComponent implements OnInit{
         this.mode = 'edit';
         this.postId = paramMap.get('postId');
         this.post = this.postService.getPostById(this.postId);
+        this.enteredTitle = this.post.title;
+        this.enteredContent = this.post.content;
       }else{
         this.mode = 'create';
         this.postId = null;

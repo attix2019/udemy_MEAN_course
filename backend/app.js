@@ -59,4 +59,16 @@ app.delete('/api/posts/:id', (req, res, next)=>{
   })
 })
 
+
+app.get('/api/posts/:id', (req, res, next)=>{
+  Post.findById( req.params.postId).then(result =>{
+    if(result){
+      console.log(result);
+      res.status(200).json(result);
+    }else{
+      res.status(404).json("not found");
+    }
+  })
+})
+
 module.exports = app;

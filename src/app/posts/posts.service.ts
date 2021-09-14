@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { Post } from "./post.model";
+import { Post } from './post.model';
 import { HttpClient } from '@angular/common/http';
 import { map} from 'rxjs/operators'
 
@@ -60,7 +60,9 @@ export class PostService {
     return {...post};
   }
 
-  updatePost(postId : string, post :Post){
+  updatePost(postId : string, title :string, content: string){
+    // const post = new Post() 用这样的方法声明就会有问题，关于typescript的类型的知识需要再深入了解一下
+    const post : Post = {id:'', title:title, content:content}
     this.http.put<Post>("http://localhost:3000/api/posts/" + postId, post)
     .subscribe( response=>{
       console.log(response);
