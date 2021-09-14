@@ -3,13 +3,14 @@ import { Observable, Subject } from "rxjs";
 import { Post } from './post.model';
 import { HttpClient } from '@angular/common/http';
 import { map} from 'rxjs/operators'
+import { Router } from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class PostService {
   private posts: any[] = [];
   private postsUpdated  = new Subject<Post[]>();
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private router: Router){}
 
   getPosts(){
     this.http.get<any>("http://localhost:3000/api/posts")
@@ -39,6 +40,7 @@ export class PostService {
       console.log(responseData);
       post.id = responseData;
       this.postsUpdated.next([...this.posts]);
+      this.router.navigate(['/']);
     });
   }
 
@@ -65,6 +67,7 @@ export class PostService {
     this.http.put<Post>("http://localhost:3000/api/posts/" + postId, post)
     .subscribe( response=>{
       console.log(response);
+      this.router.navigate(['/']);
     });
   }
 

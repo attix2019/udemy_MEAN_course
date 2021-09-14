@@ -48,6 +48,7 @@ export class PostCreateComponent implements OnInit{
           console.log(this.post);
           this.enteredTitle = this.post.title;
           this.enteredContent = this.post.content;
+          this.post.id = this.postId;
           this.isLoading = false;
         });
       }else{
