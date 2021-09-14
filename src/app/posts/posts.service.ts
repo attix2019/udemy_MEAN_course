@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { Post } from './post.model';
 import { HttpClient } from '@angular/common/http';
 import { map} from 'rxjs/operators'
@@ -53,11 +53,10 @@ export class PostService {
     })
   }
 
+  // HttpClient.get() 默认情况下把响应体当做无类型的 JSON 对象进行返回。 如果指定了可选的模板类型 <Hero[]>，就会给返回你一个类型化的对象。
+  // 在this.http.get后指定类型
   getPostById(postId : string){
-    const post = this.posts.find((post)=>{
-      return post.id == postId;
-    })
-    return {...post};
+    return this.http.get<Post>("http://localhost:3000/api/posts/" + postId);
   }
 
   updatePost(postId : string, title :string, content: string){

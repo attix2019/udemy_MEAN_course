@@ -43,7 +43,7 @@ router.delete('/:id', (req, res, next)=>{
 
 
 router.get('/:id', (req, res, next)=>{
-  Post.findById( req.params.postId).then(result =>{
+  Post.findById( req.params.id).then(result =>{
     if(result){
       console.log(result);
       res.status(200).json(result);
