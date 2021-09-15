@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from '../post.model';
 import { PostService } from '../posts.service';
@@ -17,10 +18,14 @@ export class PostCreateComponent implements OnInit{
   private postId :any;
   post:Post;
   isLoading = false;
+  form : FormGroup;
 
   @Output() postCreated = new EventEmitter<Post>();
 
   onAddPost(){
+    if(this.form.invalid){
+      return;
+    }
     var post: Post = {
       id : '',
       title: this.enteredTitle,
@@ -32,12 +37,18 @@ export class PostCreateComponent implements OnInit{
     }else {
       this.postService.updatePost(this.post.id, this.enteredTitle, this.enteredContent);
     }
+    this.form.reset();
   }
 
   constructor(postService: PostService, private route: ActivatedRoute){
     this.postService = postService;
   }
+
   ngOnInit(): void {
+    this.form = new FormGroup({
+      'title': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]}),
+      'content' :new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]})
+    });
     this.route.paramMap.subscribe((paramMap)=>{
       if( paramMap.has('postId')){
         this.mode = 'edit';
@@ -50,6 +61,8 @@ export class PostCreateComponent implements OnInit{
           this.enteredContent = this.post.content;
           this.post.id = this.postId;
           this.isLoading = false;
+          //转为响应式表单以后
+          this.form.setValue({'title': this.post.title, 'content': this.post.content});
         });
       }else{
         this.mode = 'create';
