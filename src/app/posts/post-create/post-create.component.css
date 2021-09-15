@@ -7,3 +7,7 @@
 .example-full-width {
   width: 100%;
 }
+
+input[type="file"]{
+  visibility: hidden;
+}
