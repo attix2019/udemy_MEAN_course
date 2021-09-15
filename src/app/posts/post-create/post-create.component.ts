@@ -19,6 +19,7 @@ export class PostCreateComponent implements OnInit{
   post:Post;
   isLoading = false;
   form : FormGroup;
+  imagePreviewUrl : string;
 
   @Output() postCreated = new EventEmitter<Post>();
 
@@ -50,6 +51,11 @@ export class PostCreateComponent implements OnInit{
     this.form.get('image')?.updateValueAndValidity();
     console.log(file);
     console.log(this.form);
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imagePreviewUrl = (reader.result as string);
+    }
+    reader.readAsDataURL(file);
   }
 
   ngOnInit(): void {
