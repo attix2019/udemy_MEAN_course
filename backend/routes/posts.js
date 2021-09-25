@@ -22,26 +22,27 @@ const storage = multer.diskStorage({
     cb(error, "backend/images")
   },
   filename:(req, file, cb)=>{
-    const name = file.originalname.toLocaleLowerCase.split(' ').join('-');
+    // console.log(file.originalname.toLocaleLowerCase)
+    const name = file.originalname.toLocaleLowerCase().split(' ').join('-');
     const ext = MIME_TYPE_MAP[file.mimetype];
     cb(null, name + '-' + Date.now() + '.'+ext );
   }
 })
 
-router.post('', multer(storage).single("image"), (req,res,next)=>{
+router.post('', multer({storage: storage}).single("image"), (req,res,next)=>{
   const post = new Post({
     title: req.body.title,
     content: req.body.content
   });
   post.save().then((responseData)=>{
-    console.log(post._id);
+    // console.log(post._id);
     res.status(201).json(post._id);
   });
 })
 
 router.get('',(req,res,next)=>{
   Post.find().then((documents)=>{
-    console.log(documents);
+    // console.log(documents);
     res.status(200).json(documents);
   });
 })
@@ -53,14 +54,14 @@ router.put('/:postId',(req,res,next)=>{
   });
   post._id = req.params.postId;
   Post.updateOne({_id: req.params.postId}, post).then((result)=>{
-    console.log(result);
+    // console.log(result);
     res.status(200).end();
   });
 })
 
 router.delete('/:id', (req, res, next)=>{
   Post.deleteOne({_id: req.params.id}).then(()=>{
-    console.log(req.params.id + " deleted");
+    // console.log(req.params.id + " deleted");
     res.status(200).end();
   })
 })
@@ -69,7 +70,7 @@ router.delete('/:id', (req, res, next)=>{
 router.get('/:id', (req, res, next)=>{
   Post.findById( req.params.id).then(result =>{
     if(result){
-      console.log(result);
+      // console.log(result);
       res.status(200).json(result);
     }else{
       res.status(404).json("not found");
