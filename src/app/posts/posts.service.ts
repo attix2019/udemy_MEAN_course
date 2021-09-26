@@ -8,7 +8,8 @@ import { Router } from "@angular/router";
 @Injectable({providedIn: 'root'})
 export class PostService {
   private posts: any[] = [];
-  private postsUpdated  = new Subject<Post[]>();
+  private postsUpdated  = new Subject<{posts: Post[], total : number}>();
+  totalPosts: number = 0;
 
   constructor(private http: HttpClient, private router: Router){}
 
@@ -18,19 +19,27 @@ export class PostService {
       param = `?pagesize=${pageSize}&page=${currentPage}`;
     }
     this.http.get<any>("http://localhost:3000/api/posts" + param)
-    .pipe(map((originalPosts)=>{
-      return originalPosts.map( (post: { title: string; content: string; _id: string; imagePath: string})=>{
-        return {
-          title: post.title,
-          content: post.content,
-          id: post._id,
-          imagePath : post.imagePath
-        }
-      })
+    .pipe(map((originalResponse)=>{
+      return {
+        posts: originalResponse.posts.map( (post: { title: string; content: string; _id: string; imagePath: string})=>{
+          return {
+            title: post.title,
+            content: post.content,
+            id: post._id,
+            imagePath : post.imagePath
+          }
+        }),
+        total: originalResponse.total
+      }
     }))
-    .subscribe((transformedPosts)=>{
-      this.posts= transformedPosts;
-      this.postsUpdated.next([...this.posts]);
+    .subscribe((transformedResult)=>{
+      console.log(transformedResult)
+      this.totalPosts = transformedResult.total;
+      this.posts= transformedResult.posts;
+      this.postsUpdated.next({
+        posts:[...this.posts],
+        total:transformedResult.total
+      });
     })
   }
 
@@ -52,7 +61,11 @@ export class PostService {
         imagePath:responseData.imagePath};
       this.posts.push(retPost);
       // post.id = responseData;
-      this.postsUpdated.next([...this.posts]);
+      this.totalPosts += 1;
+      this.postsUpdated.next({
+        posts:[...this.posts],
+        total: this.totalPosts,
+      });
       this.router.navigate(['/']);
     });
   }
@@ -64,7 +77,11 @@ export class PostService {
         return post.id !== postId;
       });
       this.posts = updatedPosts;
-      this.postsUpdated.next([...this.posts]);
+      this.totalPosts -= 1;
+      this.postsUpdated.next({
+        posts:[...this.posts],
+        total: this.totalPosts
+      });
     })
   }
 
