@@ -48,8 +48,17 @@ router.post('', multer({storage: storage}).single("image"), (req,res,next)=>{
 })
 
 router.get('',(req,res,next)=>{
-  Post.find().then((documents)=>{
-    // console.log(documents);
+  // console.log(req.query);
+  const pageSize = +req.query.pagesize;
+  const currentPage = +req.query.page;
+  const postQuery = Post.find();
+  // console.log(pageSize + " " + currentPage);
+  if(pageSize && currentPage){
+    //实际执行时仍然会扫描所有数据，所以这里的性能要提升需要参考课程后续的一个链接里os的讨论
+    postQuery.skip( pageSize * (currentPage - 1)).limit(pageSize);
+  }
+  postQuery.then((documents)=>{
+    console.log(documents);
     res.status(200).json(documents);
   });
 })
