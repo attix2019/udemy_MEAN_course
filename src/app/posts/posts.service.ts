@@ -38,12 +38,15 @@ export class PostService {
     postDaata.append("title", post.title);
     postDaata.append("content", post.content);
     postDaata.append("image", image, post.title);
-    this.http.post<string>("http://localhost:3000/api/posts", postDaata)
+    this.http.post<Post>("http://localhost:3000/api/posts", postDaata)
     .subscribe((responseData)=>{
       console.log(responseData);
-      const retPost: Post = {id: responseData, title:post.title, content:post.content};
+      const retPost: Post = {id: responseData.id,
+        title:responseData.title,
+        content:responseData.content,
+        imagePath:responseData.imagePath};
       this.posts.push(retPost);
-      post.id = responseData;
+      // post.id = responseData;
       this.postsUpdated.next([...this.posts]);
       this.router.navigate(['/']);
     });
@@ -68,7 +71,7 @@ export class PostService {
 
   updatePost(postId : string, title :string, content: string){
     // const post = new Post() 用这样的方法声明就会有问题，关于typescript的类型的知识需要再深入了解一下
-    const post : Post = {id:'', title:title, content:content}
+    const post : Post = {id:'', title:title, content:content, imagePath:null}
     this.http.put<Post>("http://localhost:3000/api/posts/" + postId, post)
     .subscribe( response=>{
       console.log(response);

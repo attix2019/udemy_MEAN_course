@@ -31,7 +31,8 @@ export class PostCreateComponent implements OnInit{
     var post: Post = {
       id : '',
       title: this.enteredTitle,
-      content: this.enteredContent
+      content: this.enteredContent,
+      imagePath: null
     }
     // this.postCreated.emit(post);
     if(this.mode === 'create'){
