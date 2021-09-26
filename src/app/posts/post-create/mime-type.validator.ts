@@ -1,8 +1,11 @@
 import { AbstractControl } from "@angular/forms";
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer, of } from 'rxjs';
 
 // Promise尖括号里的对象表示：只要有一个string类型的属性就可以
 export const mimeType = (control : AbstractControl): Promise<{[key : string]: any}> | Observable<{[key:string]:any}> =>{
+  if(typeof(control.value)=== 'string'){
+    return of(null);
+  }
   const file = control.value as File;
   const fileReader = new FileReader();
   fileReader.onload = ()=>{}

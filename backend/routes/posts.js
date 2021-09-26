@@ -54,10 +54,16 @@ router.get('',(req,res,next)=>{
   });
 })
 
-router.put('/:postId',(req,res,next)=>{
+router.put('/:postId', multer({storage: storage}).single("image"),(req,res,next)=>{
+  let imagePath = req.body.imagePath;
+  if(req.file){
+    const url = req.protocol+"://"+req.get("host");
+    imagePath = url + "/images/" + req.file.filename;
+  }
   const post = new Post( {
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    imagePath : imagePath
   });
   post._id = req.params.postId;
   Post.updateOne({_id: req.params.postId}, post).then((result)=>{

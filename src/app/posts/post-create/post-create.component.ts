@@ -38,7 +38,7 @@ export class PostCreateComponent implements OnInit{
     if(this.mode === 'create'){
       this.postService.addPost( post, this.form.value.image);
     }else {
-      this.postService.updatePost(this.post.id, this.enteredTitle, this.enteredContent);
+      this.postService.updatePost(this.post.id, this.enteredTitle, this.enteredContent, this.form.value.image);
     }
     this.form.reset();
   }
@@ -78,8 +78,9 @@ export class PostCreateComponent implements OnInit{
           this.enteredContent = this.post.content;
           this.post.id = this.postId;
           this.isLoading = false;
+          this.imagePreviewUrl = this.post.imagePath;
           //转为响应式表单以后
-          this.form.setValue({'title': this.post.title, 'content': this.post.content});
+          this.form.setValue({'title': this.post.title, 'content': this.post.content,'image':this.post.imagePath});
         });
       }else{
         this.mode = 'create';

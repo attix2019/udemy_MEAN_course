@@ -70,10 +70,25 @@ export class PostService {
     return this.http.get<Post>("http://localhost:3000/api/posts/" + postId);
   }
 
-  updatePost(postId : string, title :string, content: string){
+  updatePost(postId : string, title :string, content: string, image: File|string){
     // const post = new Post() 用这样的方法声明就会有问题，关于typescript的类型的知识需要再深入了解一下
     const post : Post = {id:'', title:title, content:content, imagePath:null}
-    this.http.put<Post>("http://localhost:3000/api/posts/" + postId, post)
+    let postData;
+    if(typeof(image) === 'object'){
+      postData = new FormData();
+      postData.append("id", postId);
+      postData.append("title", title);
+      postData.append("content", content);
+      postData.append("image", image, title);
+    }else{
+      postData = {
+        id: postId,
+        title : title,
+        content: content,
+        imagePaath: image
+      }
+    }
+    this.http.put<Post>("http://localhost:3000/api/posts/" + postId, postData)
     .subscribe( response=>{
       console.log(response);
       this.router.navigate(['/']);
