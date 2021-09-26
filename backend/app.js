@@ -1,6 +1,7 @@
-var express = require('express')
-var Post = require('./models/post')
+var express = require('express');
+var Post = require('./models/post');
 const mongoose = require('mongoose');
+const path = require("path");
 
 const postRouter = require('./routes/posts')
 
@@ -15,6 +16,7 @@ mongoose.connect(uri)
 })
 
 app.use(express.json());
+app.use("/images", express.static(path.join("backend/images")) );
 
 app.use((req,res, next)=>{
   res.setHeader("Access-Control-Allow-Origin", "*");
