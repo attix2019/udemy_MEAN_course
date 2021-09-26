@@ -12,8 +12,12 @@ export class PostService {
 
   constructor(private http: HttpClient, private router: Router){}
 
-  getPosts(){
-    this.http.get<any>("http://localhost:3000/api/posts")
+  getPosts(currentPage : number, pageSize : number){
+    let param = '';
+    if(currentPage && pageSize){
+      param = `?pagesize=${pageSize}&page=${currentPage}`;
+    }
+    this.http.get<any>("http://localhost:3000/api/posts" + param)
     .pipe(map((originalPosts)=>{
       return originalPosts.map( (post: { title: string; content: string; _id: string; imagePath: string})=>{
         return {

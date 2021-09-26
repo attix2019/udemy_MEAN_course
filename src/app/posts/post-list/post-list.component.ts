@@ -15,8 +15,8 @@ export class PostListComponent implements OnInit, OnDestroy{
   postService : PostService;
   private postSub: Subscription;
   isLoading = false;
-  pageSize : number;
-  currentPage : number;
+  pageSize : number = 10;
+  currentPage : number = 1;
   totalPosts = 100;
   postsPerPage = 5;
   pageSizeOptions = [1,2,5,10];
@@ -36,7 +36,7 @@ export class PostListComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    this.postService.getPosts();
+    this.postService.getPosts( this.currentPage, this.pageSize);
   }
 
   onEdit(){
@@ -53,5 +53,8 @@ export class PostListComponent implements OnInit, OnDestroy{
 // pageSize: 2
 // previousPageIndex: 0
     console.log(event)
+    this.currentPage = event.pageIndex+1;
+    this.pageSize = event.pageSize;
+    this.postService.getPosts(this.currentPage, this.pageSize);
   }
 }
