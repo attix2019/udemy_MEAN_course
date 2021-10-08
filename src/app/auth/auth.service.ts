@@ -5,9 +5,14 @@ import { AuthData } from './auth-data.model';
 
 @Injectable({providedIn: "root"})
 export class AuthService{
+  private authForList = false;
   private token : string;
   private authStatusUpdated  = new Subject<boolean>();
   constructor(private http: HttpClient){}
+
+  getAuthStatusForList(){
+    return this.authForList;
+  }
 
   getAuthStatusListener(){
     return this.authStatusUpdated.asObservable();
@@ -31,6 +36,7 @@ export class AuthService{
     .subscribe(response =>{
       console.log(response);
       this.token = response.token;
+      this.authForList = true;
       this.authStatusUpdated.next(true);
     })
   }
