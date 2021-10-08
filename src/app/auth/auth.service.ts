@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AuthData } from './auth-data.model';
+import { Router } from '@angular/router';
 
 @Injectable({providedIn: "root"})
 export class AuthService{
   private authForList = false;
   private token : string;
   private authStatusUpdated  = new Subject<boolean>();
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private router: Router){}
 
   getAuthStatusForList(){
     return this.authForList;
@@ -26,7 +27,8 @@ export class AuthService{
     const authData : AuthData = {email: email, password: password};
     this.http.post("http://localhost:3000/api/users/signup", authData)
     .subscribe(response=>{
-      console.log(response)
+      console.log(response);
+      this.router.navigate(['/']);
     })
   }
 
@@ -38,6 +40,7 @@ export class AuthService{
       this.token = response.token;
       this.authForList = true;
       this.authStatusUpdated.next(true);
+      this.router.navigate(['/']);
     })
   }
 
@@ -45,6 +48,7 @@ export class AuthService{
     this.authForList = false;
     this.token = null;
     this.authStatusUpdated.next(false);
+    this.router.navigate(['/']);
   }
 
 }
