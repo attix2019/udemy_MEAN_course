@@ -41,4 +41,10 @@ export class AuthService{
     })
   }
 
+  LogOut(){
+    this.authForList = false;
+    this.token = null;
+    this.authStatusUpdated.next(false);
+  }
+
 }
