@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 
 @Component({
@@ -9,7 +10,7 @@ import { Component } from "@angular/core";
 export class LoginComponent {
   isLoading = false;
 
-  onLogin(){
-
+  onLogin(loginForm :NgForm){
+    console.log(loginForm.value)
   }
 }
