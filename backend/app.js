@@ -5,6 +5,8 @@ const path = require("path");
 
 const postRouter = require('./routes/posts')
 
+const userRouter = require('./routes/users')
+
 const app = express();
 //uwNLEcLJpaSrbEyX
 const uri = "mongodb+srv://cr3:uwNLEcLJpaSrbEyX@crudemy1.hjx7z.mongodb.net/crdatabase?retryWrites=true&w=majority";
@@ -27,5 +29,6 @@ app.use((req,res, next)=>{
 })
 
 app.use("/api/posts",postRouter);
+app.use("/api/users",userRouter);
 
 module.exports = app;
