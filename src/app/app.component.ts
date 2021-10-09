@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AuthService } from './auth/auth.service';
+import { Component, OnInit } from '@angular/core';
 import { Post } from './posts/post.model';
 
 @Component({
@@ -6,15 +7,12 @@ import { Post } from './posts/post.model';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  storedPosts:Post[] = [];
+  constructor(private  authService : AuthService){}
 
-  onPostAdded(post: Post){
-    this.storedPosts.push(post);
+  ngOnInit(): void {
+    this.authService.autoAuthUser();
   }
-}
 
-/*
-todo：输入框加标签，form的改造，add以后重置form，编辑和删除post的按钮
-*/
+}

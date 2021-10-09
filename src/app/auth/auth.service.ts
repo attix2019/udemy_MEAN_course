@@ -39,11 +39,12 @@ export class AuthService{
     .subscribe(response =>{
       const expiresInDuration = response.expiresIn;
       console.log(expiresInDuration);
-      this.tokenTimer = setTimeout(()=>{
-        this.LogOut();
-      }, expiresInDuration )
+      this.setAuthTimer(expiresInDuration);
       this.token = response.token;
       this.authForList = true;
+      const now = new Date();
+      const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+      this.saveAuthData(this.token, expirationDate)
       this.authStatusUpdated.next(true);
       this.router.navigate(['/']);
     })
@@ -53,8 +54,49 @@ export class AuthService{
     this.authForList = false;
     this.token = null;
     this.authStatusUpdated.next(false);
+    this.clearAuthData();
     clearTimeout(this.tokenTimer);
     this.router.navigate(['/']);
   }
 
+  private saveAuthData(token: string, expirationDate : Date){
+    localStorage.setItem("token", token);
+    localStorage.setItem("expiration", expirationDate.toISOString());
+  }
+
+  private clearAuthData(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("expiration")
+  }
+
+  private getAuthData(){
+    const token = localStorage.getItem("token");
+    const expirationDate = localStorage.getItem("expiration");
+    if(!token || ! expirationDate){
+      return ;
+    }
+    return {
+      token: token,
+      expirationDate: new Date(expirationDate)
+    }
+  }
+
+  private setAuthTimer(expiresInDuration : number){
+    console.log("set timer: " + expiresInDuration)
+    this.tokenTimer = setTimeout(()=>{
+      this.LogOut();
+    }, expiresInDuration * 1000 )
+  }
+
+  autoAuthUser(){
+    const authInfo = this.getAuthData();
+    const now = new Date();
+    const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
+    if(expiresIn > 0){
+      this.token = authInfo.token;
+      this.authForList  = true;
+      this.setAuthTimer(expiresIn/1000);
+      this.authStatusUpdated.next(true);
+    }
+  }
 }
