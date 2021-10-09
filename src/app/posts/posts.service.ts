@@ -59,7 +59,8 @@ export class PostService {
       const retPost: Post = {id: responseData.id,
         title:responseData.title,
         content:responseData.content,
-        imagePath:responseData.imagePath};
+        imagePath:responseData.imagePath,
+        creator: null };
       this.posts.push(retPost);
       // post.id = responseData;
       this.totalPosts += 1;
@@ -94,7 +95,7 @@ export class PostService {
 
   updatePost(postId : string, title :string, content: string, image: File|string){
     // const post = new Post() 用这样的方法声明就会有问题，关于typescript的类型的知识需要再深入了解一下
-    const post : Post = {id:'', title:title, content:content, imagePath:null}
+    const post : Post = {id:'', title:title, content:content, imagePath:null, creator:null}
     let postData;
     if(typeof(image) === 'object'){
       postData = new FormData();

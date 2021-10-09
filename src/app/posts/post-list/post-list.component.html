@@ -10,8 +10,8 @@
       <img [src]="post.imagePath" [alt]="post.title">
     </div>
     <p>{{ post.content}}</p>
-    <a *ngIf="isAuthed" routerLink='/edit' color="primary"  mat-raised-button [routerLink]="['/edit',post.id]">edit</a>
-    <button *ngIf="isAuthed" (click)="onDelete(post.id)" mat-raised-button color="primary">delete</button>
+    <a *ngIf="isAuthed && post.creator==userId" routerLink='/edit' color="primary"  mat-raised-button [routerLink]="['/edit',post.id]">edit</a>
+    <button  *ngIf="isAuthed && post.creator==userId" (click)="onDelete(post.id)" mat-raised-button color="primary">delete</button>
   </mat-expansion-panel>
 </mat-accordion>
 <mat-card *ngIf="posts.length <= 0 && !isLoading" class="emptyHint">

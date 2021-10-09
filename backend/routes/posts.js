@@ -86,6 +86,7 @@ router.put('/:postId',  checkAuth, multer({storage: storage}).single("image"),(r
     title: req.body.title,
     content: req.body.content,
     imagePath : imagePath
+    // 这里没有creator好像对更新后的结果也没有影响？查到的新的psot仍然还是有creator的
   });
   post._id = req.params.postId;
   Post.updateOne({_id: req.params.postId,creator: req.userData.userId}, post).then((result)=>{
