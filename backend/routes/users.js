@@ -30,6 +30,7 @@ router.post("/signup",(req, res, next)=>{
 
 
 router.post("/login", (req, res, next)=>{
+  tmpUser:User;
   user.findOne({email: req.body.email})
   .then(user=>{
     if(!user){
@@ -38,6 +39,7 @@ router.post("/login", (req, res, next)=>{
         message: " auth failed"
       });
     }
+    tmpUser = user;
     return bcrypt.compare(req.body.password, user.password);
   })
   .then(legalPass =>{
@@ -50,7 +52,7 @@ router.post("/login", (req, res, next)=>{
     // 不明白为什么下面可以用user.email这个值，user不是前一个.then里的参数吗
     // 视频里后来果然因为这个原因失败了。但我自己直接这样还能成功
     const token = jwt.sign(
-      {email: user.email, userId: user._id},
+      {email: tmpUser.email, userId: tmpUser._id},
       'secret_this_should_be_longer',
       {
         expiresIn: "1h"

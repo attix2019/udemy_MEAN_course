@@ -21,12 +21,13 @@ export class PostService {
     this.http.get<any>("http://localhost:3000/api/posts" + param)
     .pipe(map((originalResponse)=>{
       return {
-        posts: originalResponse.posts.map( (post: { title: string; content: string; _id: string; imagePath: string})=>{
+        posts: originalResponse.posts.map( (post: { title: string; content: string; _id: string; imagePath: string; creator: string})=>{
           return {
             title: post.title,
             content: post.content,
             id: post._id,
-            imagePath : post.imagePath
+            imagePath : post.imagePath,
+            creator: post.creator
           }
         }),
         total: originalResponse.total
