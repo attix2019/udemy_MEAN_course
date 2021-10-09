@@ -16,10 +16,10 @@ export class ErrorInterceptor implements HttpInterceptor{
     return next.handle(req).pipe(
       catchError((response : HttpErrorResponse) =>{
         let errorMessage = "an unknown error occured";
-        if(response.error.error.message){
-          errorMessage=response.error.error.message;
+        console.log(response);
+        if(response.error.message){
+          errorMessage=response.error.message;
         }
-        console.log(response.error.error.message);
         const dialogConfig = new MatDialogConfig();
         dialogConfig.data = {message : errorMessage};
         // dialogConfig.disableClose = true;
