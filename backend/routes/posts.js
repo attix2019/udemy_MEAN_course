@@ -88,16 +88,24 @@ router.put('/:postId',  checkAuth, multer({storage: storage}).single("image"),(r
     imagePath : imagePath
   });
   post._id = req.params.postId;
-  Post.updateOne({_id: req.params.postId}, post).then((result)=>{
-    // console.log(result);
-    res.status(200).end();
+  Post.updateOne({_id: req.params.postId,creator: req.userData.userId}, post).then((result)=>{
+    console.log(result);
+    if(result.modifiedCount > 0){
+      res.status(200).json({message: " updated successfully"});
+    }else{
+      res.status(401).json({message: " unauthorized"});
+    }
   });
 })
 
 router.delete('/:id', checkAuth, (req, res, next)=>{
-  Post.deleteOne({_id: req.params.id}).then(()=>{
-    // console.log(req.params.id + " deleted");
-    res.status(200).end();
+  Post.deleteOne({_id: req.params.id, creator: req.userData.userId}).then(result=>{
+    console.log(result);
+    if(result.deletedCount > 0){
+      res.status(200).json({message: " updated successfully"});
+    }else{
+      res.status(401).json({message: " unauthorized"});
+    }
   })
 })
 
